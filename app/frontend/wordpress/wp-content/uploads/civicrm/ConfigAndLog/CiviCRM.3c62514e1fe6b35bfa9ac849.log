@@ -1,0 +1,9 @@
+Dec 11 16:15:53  [info] Creating canary table
+
+Dec 11 16:16:37  [warning] Deprecated function CRM_Core_BAO_Setting::setItem, use refer docs for correct methods https://docs.civicrm.org/dev/en/latest/framework/setting/.
+Array
+(
+    [civi.tag] => deprecated
+)
+
+
