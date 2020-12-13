@@ -1,0 +1,2 @@
+class AgencyClientHistory < ClientHistoryAssociation
+end

@@ -1,0 +1,11 @@
+:concurrency: 1
+demo:
+  :concurrency: 2
+staging:
+  :concurrency: 2
+production:
+  :concurrency: 2
+:queues:
+  - default
+  - [send_email, 3]
+  - [priority, 10]

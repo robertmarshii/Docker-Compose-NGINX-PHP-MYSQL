@@ -1,0 +1,2 @@
+class SponsorHistory < ClientHistoryAssociation
+end

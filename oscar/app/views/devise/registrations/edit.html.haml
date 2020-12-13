@@ -1,0 +1,100 @@
+.row
+  .col-xs-12.form
+    .ibox
+      .ibox-title
+        %h5= t('.header')
+      = simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f|
+        .ibox-content
+          = error_notification(f)
+          .form-inputs
+            .row
+              .col-xs-12.col-md-4= f.input :first_name, label: t('.first_name')
+              .col-xs-12.col-md-4= f.input :last_name, label: t('.last_name')
+              .col-xs-12.col-md-4.form-group.date.optional.user_date_of_birth
+                %label.date.optional.control-label{ for: 'user_date_of_birth' }= t('.date_of_birth')
+                .input-group.date
+                  = f.text_field :date_of_birth, class: 'date optional form-control date-picker', type: 'text', name: 'user[date_of_birth]', id: 'user_date_of_birth'
+                  %span.input-group-addon
+                    %i.fa.fa-calendar-check-o
+            .row
+              .col-xs-12.col-md-4= f.input :gender, collection: [t('users.gender_list').values, User::GENDER_OPTIONS].transpose, label: t('.gender')
+              .col-xs-12.col-md-4= f.input :job_title, label: t('.job_title')
+              .col-xs-12.col-md-4= f.association :department, collection: @department, include_blank: false, label: t('.department')
+            .row
+              .col-xs-12.col-md-4.form-group.date.optional.user_start_date
+                %label.date.optional.control-label{ for: 'user_start_date' }= t('.start_date')
+
+                .input-group.date
+                  = f.text_field :start_date, class: 'date optional form-control date-picker', type: 'text', name: 'user[start_date]', id: 'user_start_date'
+                  %span.input-group-addon
+                    %i.fa.fa-calendar-check-o
+
+              .col-xs-12.col-md-4= f.association :province, collection: @province, include_blank: false, label: t('.province')
+              .col-xs-12.col-md-4= f.input :mobile, label: t('.mobile')
+            .row
+              - if current_user.admin? || current_user.manager?
+                .col-xs-12.col-sm-6.col-md-4
+                  .i-checks.referral_notification
+                    %label= t('.referral_notification')
+                    = f.input :referral_notification, as: :radio_buttons, collection: [['Yes', true],['No', false]], label: false
+              - if policy(resource).task_notify?
+                .col-xs-12.col-sm-6.col-md-4
+                  .i-checks.overdue_task_summary_notify
+                    %label= t('.overdue_task_summary_notify')
+                    = f.input :task_notify, as: :radio_buttons, collection: [['Yes', true],['No', false]], label: false
+              -# - if policy(resource).staff_performance_notification?
+              -#   .col-xs-12.col-sm-6.col-md-4.performance_report
+              -#     .i-checks
+              -#       %label= t('.staff_performance_notification')
+              -#       = f.input :staff_performance_notification, as: :radio_buttons, collection: [['Yes', true],['No', false]], label: false
+              .col-xs-12.col-sm-6.col-md-4
+                .i-checks.calendar-integration
+                  %label= t('.calendar_integration')
+                  = f.input :calendar_integration, as: :radio_buttons, collection: [['Yes', true],['No', false]], label: false
+            .row
+              .col-xs-12.col-sm-6.col-md-4= f.input :pin_code, label: t('.pin_number')
+              .col-xs-12.col-md-4= f.input :email, required: true, label: t('.email')
+              - if devise_mapping.confirmable? && resource.pending_reconfirmation?
+                %span.help-block
+                  Currently waiting confirmation for: #{resource.unconfirmed_email}
+
+              .col-xs-12.col-md-4= f.input :password, autocomplete: 'off', hint: t('.leave_blank_if_you_dont_want_to_change'), required: false, label: t('.password')
+            .row
+              .col-xs-12.col-md-4= f.input :password_confirmation, required: false, label: t('.password_confirmation')
+              .col-xs-12.col-md-4= f.input :current_password, hint: t('.we_need_your_current_password_to_confirm_your_changes'), required: true, label: t('.current_password')
+            .row
+              .col-xs-12.col-md-4= f.input :preferred_language, collection: User::LANGUAGES.map{ |lan_code, lang_word| [lan_code, t("layout.top_navbar.#{lang_word}")]}, label_method: :last, value_method: :first
+        .ibox-footer
+          = f.submit t('.save'), class: 'btn btn-primary form-btn'
+-#           - link_text = resource.otp_module_enabled? ? t('.disable_two_factor_authentication') : t('.enable_two_factor_authentication')
+-#           - btn_color_class = resource.otp_module_enabled? ? 'btn-danger' : 'btn-info'
+-#           = link_to link_text, '#two_factor', data: { toggle: :modal }, class: "btn form-btn #{btn_color_class}"
+-#
+-# #two_factor.modal.fade
+-#   - url = resource.otp_module_enabled? ? disable_multi_factor_authentication_user_path(resource) : enable_multi_factor_authentication_user_path(resource)
+-#   = simple_form_for :multi_factor_authentication, url: url, html: { class: 'form-inline' }  do |f|
+-#     .modal-dialog
+-#       .modal-content
+-#         .modal-header
+-#           %button.close{"aria-hidden" => "true", "data-dismiss" => "modal", :type => "button"} ×
+-#           %h4.modal-title
+-#             = resource.otp_module_enabled? ? t('.disable_two_factor_authentication') : t('.enable_two_factor_authentication')
+-#         .modal-body
+-#           - unless resource.otp_module_enabled?
+-#             - qr = RQRCode::QRCode.new(resource.provisioning_uri, level: :h)
+-#             %table.qr{:align => "center"}
+-#               - qr.modules.each_index do |x|
+-#                 %tr
+-#                   - qr.modules.each_index do |y|
+-#                     - if qr.dark?(x,y)
+-#                       %td.black
+-#                     - else
+-#                       %td.white
+-#             %hr/
+-#           .form-group
+-#             .text-center
+-#               = f.input_field :otp_code_token, placeholder: t('.verification_code'), class: 'form-control input-lg'
+-#         .modal-footer
+-#           - btn_text = resource.otp_module_enabled? ? t('.disable') : t('.enable')
+-#           - btn_color_class = resource.otp_module_enabled? ? 'btn-danger' : 'btn-info'
+-#           %button{ class: "btn btn-block #{btn_color_class}", type: 'submit', data: { disable_with: btn_text } }= btn_text

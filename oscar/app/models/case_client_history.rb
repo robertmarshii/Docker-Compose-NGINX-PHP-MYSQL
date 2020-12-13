@@ -1,0 +1,2 @@
+class CaseClientHistory < ClientHistoryAssociation
+end

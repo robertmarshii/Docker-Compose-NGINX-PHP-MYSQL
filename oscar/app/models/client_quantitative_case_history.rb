@@ -1,0 +1,2 @@
+class ClientQuantitativeCaseHistory < ClientHistoryAssociation
+end

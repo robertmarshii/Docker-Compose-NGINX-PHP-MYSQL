@@ -1,0 +1,29 @@
+.row
+  .col-xs-12
+    .ibox
+      .ibox-title
+        %h5= "#{@client.en_and_local_name} - #{t('.enrollment_date')} #{date_format(@client_enrollment.enrollment_date)}"
+        .ibox-tools
+          - if can? :manage, ClientEnrollment
+            = client_enrollment_edit_link
+            = client_enrollment_destroy_link
+            = link_to t('.back'), report_client_client_enrollments_path(@client, program_stream_id: @program_stream), class: 'btn btn-back-default btn-default form-btn margin-btn'
+      .ibox-content
+        .table-responsive
+          %table.table.table-bordered
+            - @program_stream.enrollment.map{|properties| [properties['type'], properties['label']]}.each do |type, key|
+              - unless type == 'separateLine'
+                - if type == 'paragraph'
+                  %tr
+                    %td.align-justify{colspan: '2'}
+                      = key.html_safe
+                - else
+                  %tr
+                    %td.align-justify
+                      = key.html_safe
+                    %td.align-justify
+                      - key = convert_bracket(key, @client_enrollment.properties)
+                      - if type == 'file'
+                        = render 'shared/form_builder/list_attachment', label: key, resource: @client_enrollment
+                      - else
+                        = display_custom_properties(@client_enrollment.properties[key])

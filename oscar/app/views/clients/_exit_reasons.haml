@@ -1,0 +1,12 @@
+- if params[:data].presence == 'recent'
+  - recent_record = object.exit_ngos.most_recents.first.try(:exit_reasons)
+  - if recent_record.present?
+    %ul
+      %li= recent_record.join(', ')
+
+- else
+  %ul
+    - reasons = [ExitNgo::EXIT_REASONS.sort, I18n.t('client.exit_ngos.form.exit_reason_options').values].transpose.to_h
+    - object.exit_ngos.most_recents.each do |exit_ngo|
+      - if exit_ngo.exit_reasons.present?
+        %li= exit_ngo.exit_reasons.map{ |reason| reasons[reason] }.join(', ')

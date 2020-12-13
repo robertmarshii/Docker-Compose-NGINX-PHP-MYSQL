@@ -1,0 +1,226 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}
+    %meta{:content => "IE=edge", "http-equiv" => "X-UA-Compatible"}
+    %meta{:content => "width=device-width, initial-scale=1", :name => "viewport"}
+    %title OSCaR - Open Source Case-management and Record-keeping
+
+    :javascript
+      function pageNumber() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = decodeURIComponent(z[1]);}
+        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+        for(var i in x) {
+          var y = document.getElementsByClassName(x[i]);
+          for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+      }
+
+    %link{:crossorigin => "anonymous", :href => "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css", :integrity => "sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=", :rel => "stylesheet"}/
+    :css
+      .min-width {
+        min-width: 700px;
+      }
+      /* @font-face {
+        font-family: 'Khmer OS';
+        src: url(font_url('KhmerOS.ttf'));
+        font-weight: normal;
+        font-style: normal;
+      } */
+
+      body {
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+      }
+
+      body#government_forms {
+        font-family: 'Khmer OS Siemreap';
+      }
+
+      .panel-body {
+        padding: 7px;
+      }
+
+      #top-header {
+        font-family: 'Khmer OS Muol';
+        font-size: 18px;
+      }
+
+      .text-main-header {
+        font-family: 'Khmer OS Muol';
+        font-size: 16px;
+      }
+
+      span {
+        padding: 0 7px;
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+        border-left: 1px;
+        margin-left: -4px !important;
+      }
+      span.no-border {
+        border-style: none;
+      }
+      span.first {
+        margin-left: 3px !important;
+        border-left: 1px solid black;
+      }
+
+      div.other {
+        margin-left: 8px;
+        padding: 5px;
+        border: 1px solid #000;
+        float: left;
+        min-width: 200px;
+      }
+
+      div.other-one {
+        margin-left: -40px;
+        padding: 5px;
+        border: 1px solid #000;
+        float: left;
+        min-width: 130px;
+        max-width: 150px;
+        min-height: 30px;
+      }
+
+      div.other.empty {
+        padding: 14px;
+      }
+
+      div.other-one.empty {
+        padding: 14px;
+      }
+
+      div.other-label {
+        float: left;
+      }
+
+      .signature_date span {
+        padding: 4px 12px;
+        border-style: solid;
+        border-color: black;
+        border-width: 1px;
+        border-left: 1px;
+        margin-left: -4px !important;
+      }
+      span.padding-date {
+        padding: 4px 14px;
+      }
+      .signature_date span.first {
+        margin-left: 3px !important;
+        border-left: 1px solid black;
+      }
+      .panel-border {
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+      }
+      .panel-no-margin {
+        margin-bottom: 0px;
+      }
+      .border-label {
+        border-bottom: 1px solid black;
+        border-right: 1px solid black;
+        border-left: 1px solid black;
+      }
+      .panel-label {
+        padding:3px;
+        border: 1px solid black;
+        width:100%;
+        margin-bottom: 1px;
+      }
+      .panel-label-dotted {
+        border-bottom: 1px dotted black;
+        border-right: 1px dotted black;
+        border-left: 1px dotted black;
+      }
+      .panel-margin-top {
+        margin-top: 12px;
+      }
+      #panel-top-bottom-dotted {
+        border-bottom: 1px dotted black;
+        border-top: 1px dotted black;
+        border-right: 1px dotted black;
+        border-left: 1px dotted black;
+        padding:6px;
+        width:100%;
+      }
+      .table-borderless tbody tr td{
+        border: 0;
+        padding: 3px;
+      }
+      .table-border thead tr th,
+      .table-border thead:first-child tr:first-child th,
+      .table-border tbody tr td {
+        border: 1px solid black;
+      }
+      .panel-border {
+        border-color: black;
+        border-radius: 0px;
+      }
+      .panel-borderless {
+        border: 0;
+        border-radius: 0;
+      }
+      .panel-padding {
+        padding: 10px 5px;
+      }
+      .panel-no-padding {
+        padding: 0;
+      }
+      .panel-no-margin {
+        margin: 0;
+      }
+      .no-border-bottom {
+        border-bottom: 0;
+      }
+      .no-margin-bottom {
+        margin-bottom: 0;
+      }
+      .bottom-radius {
+        border-top: 0;
+        border-radius: 0;
+        border-bottom-left-radius: 3px;
+        border-bottom-right-radius: 3px;
+      }
+      .top-radius {
+        border-bottom: 0;
+        border-radius: 0;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+      }
+      .dot-row {
+        border-bottom: 1px dashed black !important;
+      }
+
+      .no-left-padding {
+        padding-left: 0;
+      }
+
+      .no-right-padding {
+        padding-right: 0;
+      }
+
+      table#carer-options tbody td {
+        padding-bottom: 0;
+        vertical-align: middle;
+      }
+
+      table#carer-options tbody tr td:first-child {
+        padding-top: 0;
+      }
+
+      .blank-box-date {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #000;
+        float: left;
+      }
+
+  %body{ id: "#{controller_name}", style: 'background-color:#fff;padding-bottom:20px;padding-left:40px;padding-right:40px;', onload: 'pageNumber()' }
+    = yield

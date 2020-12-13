@@ -1,0 +1,22 @@
+.nested-fields
+  .field
+    = f.input :children_plan_id, as: :hidden, label: false
+    %p
+      %strong= f.object.children_plan_name
+    .row
+      .col-xs-3
+        = f.input :goal, label: 'គោលដៅ', input_html: { class: 'characterCount', data: {count: 16} }
+        %span.countup="#{f.object.goal.length} / 16 Character(s) Remaining "
+      .col-xs-3
+        = f.input :action, label: 'សកម្មភាពលម្អិត', input_html: { class: 'characterCount', data: {count: 40} }
+        %span.countup="#{f.object.action.length} / 40 Character(s) Remaining"
+      .col-xs-3
+        = f.input :who, label: 'អ្នកអនុវត្ត', input_html: { class: 'characterCount', data: {count: 9} }
+        %span.countup= "#{f.object.who.length} / 9 Character(s) Remaining "
+      .col-xs-3.form-group.date.optional
+        %label.date.optional.control-label
+          = 'អនុវត្តពេលណា'
+        .input-group.date
+          = f.text_field :completion_date, class: 'date optional form-control date-picker', type: 'text'
+          %span.input-group-addon
+            %i.fa.fa-calendar-check-o

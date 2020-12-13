@@ -1,0 +1,14 @@
+body[id='custom_fields-show'] {
+  .hide-custom-field {
+    pointer-events: none;
+    opacity: 0.8;
+  }
+
+  .radio-group, .check-box-group {
+    margin-top: 10px;
+    li {
+      list-style-type: none;
+      margin-top:  5px;
+    }
+  }
+}

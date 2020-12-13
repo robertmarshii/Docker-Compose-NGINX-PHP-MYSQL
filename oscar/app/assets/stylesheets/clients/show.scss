@@ -1,0 +1,283 @@
+body[id='clients-show'] {
+  .case-history-detail {
+    table tbody tr td:last-child {
+      min-width: 150px;
+    }
+
+    table tbody tr td.exit-reason-label {
+      .label {
+        white-space:normal !important;
+        line-height: 2.5;
+      }
+    }
+  }
+
+  .label-default.family {
+    border: 1px solid #cacaca;
+    background-color: #fff;
+  }
+
+  .panel-heading small a {
+    text-decoration: none;
+    margin: 0 5px;
+  }
+  .align-justify{
+    width: 50%;
+  }
+  .show-name{
+    font-size: 20px;
+  }
+  .show-status{
+    position: relative;
+    top: -3px;
+    left: 10px;
+  }
+  .client-info{
+    margin-left: 10px;
+    margin-top: 2px;
+  }
+  .count-margin{
+    margin-right: 5px;
+  }
+  .small-btn-margin{
+    margin-top: 8px;
+    .dropdown-toggle{
+      padding: 4px;
+    }
+  }
+
+  .client {
+    .panel-body {
+      min-height: 498px;
+      .first-table, .second-table {
+        max-width: 420px;
+        overflow-x: scroll;
+      }
+    }
+  }
+
+  .case {
+    .panel-body {
+      height: 520px;
+    }
+  }
+
+  #legal-document {
+    table.table-bordered th:last-child, table.table-bordered td:last-child {
+      border-right-width: 1px;
+    }
+  }
+
+  small.top-right-icon {
+    position: absolute;
+    top: 16px;
+    right: 30px;
+
+    i {
+      font-size: 24px;
+      padding-top: 5px;
+    }
+  }
+
+  .btn-getout {
+    float: right;
+    margin-left: 10px;
+  }
+
+  .h3-header {
+    margin: 0;
+    width: 87%;
+  }
+
+  .white-text {
+    color: white;
+  }
+
+  .pushing-top {
+    margin-top: 15px;
+  }
+
+  .pushing-bottom {
+    margin-bottom: 15px;
+  }
+
+  .agree-btn {
+    width: 100px;
+    text-align: center;
+    padding: 6px;
+  }
+
+  .middle-text {
+    margin-top: 10px;
+    margin-bottom: 18px;
+  }
+
+  .bottom-corner {
+   position: absolute;
+   right: 5px;
+   bottom: 3px;
+   margin: 0;
+  }
+
+  td.spacing-first-col {
+    width: 172px;
+  }
+
+  .overflow-case {
+    overflow-y: auto;
+    height: 400px;
+  }
+
+  .label.label-default {
+    line-height: 2.2;
+    margin-right: 3px;
+  }
+
+  .label.agency {
+    margin-right: 3px;
+  }
+
+  .color-blue {
+    background-color: steelblue;
+  }
+
+  .color-turquoise {
+    background-color: mediumturquoise;
+  }
+
+  .color-brown{
+    background-color: #AC4608;
+    color: white;
+  }
+  .accept-layout{
+    position: absolute;
+    top: -30%;
+    right: -88%;
+  }
+
+  .form-actions {
+    float: left;
+    margin-top: 0;
+  }
+
+  .scrollable-dropdown-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    right: auto;
+    left: 0;
+    z-index: 2001;
+    padding: 15px;
+    width: 300px;
+  }
+
+  span.btn {
+    a {
+      display: block;
+      color: white;
+    }
+  }
+
+  .btn-fit {
+    min-width: 170px;
+  }
+
+  .scrollable-dropdown-menu.add-form {
+    right: 0;
+    left: auto;
+  }
+
+  table#main-info {
+    tr:first-child td {
+      border-top: none;
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    .scrollable-dropdown-menu {
+      width: 350px;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .case .panel-body {
+      height: auto;
+    }
+
+    .second-table {
+      margin-top: -21px;
+    }
+
+    .overflow-case {
+      height: auto;
+    }
+  }
+
+  @media screen and (min-width: 991px){
+    .scrollable-dropdown-menu.additional-forms {
+      right: 0;
+      left: auto;
+    }
+    .scrollable-dropdown-menu {
+      width: 400px;
+    }
+  }
+
+  .government-reports, .progress-notes {
+    padding: 10px;
+  }
+  .color-orange {
+    background-color: #f0ad4e;
+  }
+  .what3words{
+    height: 17%;
+  }
+  .exit_ngo_exit_reasons > span{
+    margin-left: -15px;
+  }
+  .exit_ngo_other_info_of_exit{
+    margin-top: 10px;
+  }
+  .client_exit_date{
+    margin-top: 25px;
+  }
+
+  button.close {
+    margin-right: 10px;
+    span {
+      position: absolute;
+    }
+  }
+
+  .exit_ngo_exit_reasons .icheckbox_square-green {
+    margin-right: 5px;
+  }
+
+  .btn#edit-exit-info {
+    margin-left: 10px;
+  }
+
+  .disabled.day {
+    color: #999999 !important;
+  }
+
+  .fa-envelope:hover:before{
+    content: "\f2b6";
+  }
+
+  .datepicker table.table-condensed th.prev {
+    .icon-arrow-left:before {
+      content: "\f053";
+      font-family: FontAwesome;
+      position: relative;
+    }
+  }
+
+  .datepicker table.table-condensed th.next {
+    .icon-arrow-right:before {
+      content: "\f054";
+      font-family: FontAwesome;
+      position: relative;
+    }
+  }
+}

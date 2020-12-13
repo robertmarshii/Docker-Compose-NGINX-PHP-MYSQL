@@ -1,0 +1,92 @@
+.row.mini-margin
+  .col-xs-12.col-sm-10.col-sm-offset-1
+    .alert.alert-warning.alert-dismissible{ :role => "alert" }
+      %button.close{"aria-label" => "Close", "data-dismiss" => "alert", :type => "button"}
+        %span{"aria-hidden" => "true"} ×
+      %ul
+        %li= I18n.t('inline_help.clients.assessments.case_plan.lists.list1').html_safe
+        %li= I18n.t('inline_help.clients.assessments.case_plan.lists.list2').html_safe
+        %li= I18n.t('inline_help.clients.assessments.case_plan.lists.list3').html_safe
+        %li= I18n.t('inline_help.clients.assessments.case_plan.lists.list4').html_safe
+        %li= I18n.t('inline_help.clients.assessments.case_plan.lists.list5').html_safe
+    .ibox#assessment-info.center-block
+      .ibox-title
+        = link_to client_assessments_path(@assessment.client), class: 'btn btn-default' do
+          = t('.back_to_assessment_history')
+      .ibox-content
+        .row
+          .col-xs-10
+            = render partial: 'incomplete_detail', locals: { assessment: @assessment }
+            %p
+              %b= "#{t('.case_plan')} #{@assessment.client.name}"
+              %label{ class: "cursor-pointer #{@assessment.completed_label_class}", data: { toggle: :modal, target: "#modal-incomplete-assessment-#{@assessment.id}" } }
+                = @assessment.completed_status
+              %br
+              - if @assessment.index_of == 0
+                = "#{t('.initial_assessment')}"
+              - else
+                = "#{t('.based_on')} #{@assessment.index_of + 1}"
+              %br
+              = "#{t('.assessment_created_by')} #{whodunnit('Assessment', @assessment)} #{t('.on_date')} #{date_format(@assessment.created_at)}"
+          .col-xl-1.button-position
+            .pull-right
+              - if policy(@assessment).edit?
+                = assessment_edit_link(@assessment.client, @assessment)
+              - if current_user.admin?
+                = assessment_destroy_link(@assessment.client, @assessment)
+        - @assessment.assessment_domains_in_order.each do |ad|
+          .row
+            .col-xs-12
+              %div{class: "panel panel-#{ad.score_color_class}"}
+                .panel-heading
+                  %table.table.table-borderless
+                    %tbody
+                      %tr
+                        - if current_organization.try(:aht) == true
+                          = domain_name_for_aht(ad).html_safe
+                        - else
+                          %td.no-padding-bottom
+                            %b
+                              = t('.domain')
+                              = t("domains.domain_names.#{ad.domain.name.downcase.reverse}") + ":"
+                          %td.no-padding-bottom
+                            %b= t("domains.domain_identies.#{ad.domain.identity.strip.parameterize('_')}_#{ad.domain.name.downcase}")
+                        %td{rowspan: 4}
+                          .domain-score.text-center
+                            - unless @assessment.initial?
+                              %button{ 'data-original-title': "#{simple_format(ad.previous_score_definition)}", type: 'button', class: "btn btn-#{ad.previous_score_color_class} btn-xs", 'data-toggle': 'tooltip' }
+                                = "#{ad.previous_score}"
+                              %span{style: 'color:black;'} &#8594;
+                            %button{ 'data-original-title': "#{simple_format(ad.score_definition)}", type: 'button', class: "btn btn-#{ad.score_color_class} btn-xs", 'data-toggle': 'tooltip' }
+                              = "#{ad.score}"
+                      %tr
+                        %td.no-padding-top
+                          %b= "#{t('.score')} #{ad.score}:"
+                        %td.no-padding-top
+                          %b= simple_format(ad.score_definition)
+                      %tr
+                        %td
+                          %b= "#{t('.reason')}:"
+                        %td
+                          = ad.reason
+                      %tr
+                        %td
+                          %b= "#{t('.goal')}:"
+                        %td
+                          = ad.try(:goal)
+                      - incomplete_tasks = @client.tasks.by_domain_id(ad.domain_id).incomplete
+                      - if incomplete_tasks.any?
+                        %tr
+                          %td
+                            %b= "#{t('.task')}:"
+                          %td
+                            - incomplete_tasks.each do |task|
+                              %li= "#{task.name} (#{t('.due_date')}: #{date_format(task.completion_date)})"
+                      %tr
+                        %td
+                        %td
+                          - if ad.attachments.any?
+                            %br
+                            %button.btrn.btn-info.btn-sm{"data-target" => "#attachments#{ad.id}", "data-toggle" => "modal", :type => "button"}= t('.show_attachment')
+                - if ad.attachments.any?
+                  = render 'attachment', { ad: ad }
